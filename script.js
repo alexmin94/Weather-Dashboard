@@ -1,6 +1,7 @@
 const apikey="dbb601e9b7c8bad902bd55c2a2689ca5"
 const input=document.querySelector("#input")
 const citytitle=document.querySelector(".citytitle")
+const cityinfo=document.querySelector(".cityinfo")
 
 function search(cityname){
     fetch(
@@ -18,8 +19,13 @@ const lat=data[0].lat
 const lon=data[0].lon
 
 fetch(
-    `https`
-)
+    `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apikey}`
+).then(function(response){
+    return response.json()
+}).then(function (forcastdata){
+    console.log(forcastdata,"datastuff")
+    
+})
     })
 }
 
