@@ -2,6 +2,7 @@ const apikey="dbb601e9b7c8bad902bd55c2a2689ca5"
 const input=document.querySelector("#input")
 const citytitle=document.querySelector(".citytitle")
 const cityinfo=document.querySelector(".cityinfo")
+const fivedaycontainer=document.querySelector(".fiveDayContainer")
 
 function search(cityname){
     fetch(
@@ -24,6 +25,7 @@ fetch(
     return response.json()
 }).then(function (forecastdata){
     console.log(forecastdata,"datastuff")
+    let fiveday=""
     const iconcode=forecastdata.current.weather[0].icon
     const iconlink=`https://openweathermap.org/img/w/${iconcode}.png`
 
@@ -40,6 +42,32 @@ fetch(
     `
 
     cityinfo.innerHTML=currentWeather
+
+
+    let fivedayforecast=forecastdata.daily
+    
+    for(var i=0;i<5;i++){
+        console.log(fivedayforecast[i],"5day")
+        const time=fivedayforecast[i].dt * 1000
+        const currentdates=new Date(time).toLocaleDateString()
+        const fivedayicon=fivedayforecast[i].weather[0].icon
+        const fivedaylink=`https://openweathermap.org/img/w/${fivedayicon}.png`
+         fiveday +=`
+        <div>
+        <p>${currentdates}</p>
+        <div class="cardimage">
+        <img src="${fivedaylink}"/>
+        </div>
+        <p> ${fivedayforecast[i].weather[0].description}</p>
+    <p>temp: ${fivedayforecast[i].temp.day}</p>
+    <p>humidity: ${fivedayforecast[i].humidity}</p>
+    <p>windspeed: ${fivedayforecast[i].wind_speed}</p>
+        
+        </div>
+        `
+        fivedaycontainer.innerHTML=fiveday
+
+    }
 
 
 })
