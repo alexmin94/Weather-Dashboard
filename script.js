@@ -22,9 +22,26 @@ fetch(
     `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apikey}`
 ).then(function(response){
     return response.json()
-}).then(function (forcastdata){
-    console.log(forcastdata,"datastuff")
-    
+}).then(function (forecastdata){
+    console.log(forecastdata,"datastuff")
+    const iconcode=forecastdata.current.weather[0].icon
+    const iconlink=`https://openweathermap.org/img/w/${iconcode}.png`
+
+    const currentWeather=`
+    <div>
+    <img src="${iconlink}"/>
+    <p> ${forecastdata.current.weather[0].description}</p>
+    <p>temp: ${forecastdata.current.temp}</p>
+    <p>humidity: ${forecastdata.current.humidity}</p>
+    <p>windspeed: ${forecastdata.current.wind_speed}</p>
+    </div>
+
+
+    `
+
+    cityinfo.innerHTML=currentWeather
+
+
 })
     })
 }
