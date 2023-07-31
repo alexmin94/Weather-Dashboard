@@ -1,9 +1,10 @@
+// "0ea61558bdb913d734d4f05c0f4302f6"
 const apikey="dbb601e9b7c8bad902bd55c2a2689ca5"
 const input=document.querySelector("#input")
 const citytitle=document.querySelector(".citytitle")
 const cityinfo=document.querySelector(".cityinfo")
 const fivedaycontainer=document.querySelector(".fiveDayContainer")
-
+const historysection=document.querySelector(".historySection")
 function search(cityname){
     fetch(
         `https://api.openweathermap.org/geo/1.0/direct?q=${cityname}&limit=5&appid=${apikey}`
@@ -53,7 +54,7 @@ fetch(
         const fivedayicon=fivedayforecast[i].weather[0].icon
         const fivedaylink=`https://openweathermap.org/img/w/${fivedayicon}.png`
          fiveday +=`
-        <div>
+        <div class="fivedaycard">
         <p>${currentdates}</p>
         <div class="cardimage">
         <img src="${fivedaylink}"/>
@@ -73,11 +74,35 @@ fetch(
 })
     })
 }
+function storecities(){
+    let history=input.value.trim()
+    let savedcities=JSON.parse(localStorage.getItem("savedcities"))||[]
+    savedcities.push(history)
+    localStorage.setItem("savedcities",JSON.stringify(savedcities))
+    displaypastcities(savedcities)
+}
+function displaypastcities(savedcities){
+    historysection.innerHTML=""
+    savedcities.forEach(function(city){
+        const citylist=document.createElement("li")
+        citylist.textContent=city
+        citylist.className+="past"
+        historysection.appendChild(citylist)
+        citylist.addEventListener("click",function(event){
+            let previouscity=citylist.textContent
+            search(previouscity)
+        })
+
+    })
+
+
+}
 
 
 const button=document.querySelector("#search-button")
 button.addEventListener("click",function(event){
     event.preventDefault()
+    storecities()
     let cityname=input.value.trim()
     search(cityname)
 })

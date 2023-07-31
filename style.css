@@ -1,5 +1,9 @@
-*{
-    border:solid 1px blue;
+.past{
+    list-style:none;
+    border-radius: 5px;
+    background-color: blue;
+    padding: .75rem;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 }
 
 
@@ -10,6 +14,7 @@
     justify-content: center;
     padding: 2rem;
     gap: 2rem;
+    flex-wrap: wrap;
 }
 
 .searchSection{
@@ -28,6 +33,9 @@
     justify-content: center;
     padding: 2rem;
     gap: 2rem;
+    background-color: beige;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 }
 
 .fiveDayContainer{
@@ -37,4 +45,17 @@
     justify-content: center;
     padding: 2rem;
     gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.historySection{
+    display:flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+.fivedaycard{
+    background-color: aquamarine;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    padding: 2rem;
 }
