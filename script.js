@@ -1,5 +1,4 @@
-// "0ea61558bdb913d734d4f05c0f4302f6"
-const apikey="dbb601e9b7c8bad902bd55c2a2689ca5"
+const apikey="0ea61558bdb913d734d4f05c0f4302f6"
 const input=document.querySelector("#input")
 const citytitle=document.querySelector(".citytitle")
 const cityinfo=document.querySelector(".cityinfo")

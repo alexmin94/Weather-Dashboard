@@ -1,7 +1,7 @@
 .past{
     list-style:none;
     border-radius: 5px;
-    background-color: blue;
+    background-color: rgb(151, 222, 222);
     padding: .75rem;
             box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 }
@@ -24,7 +24,9 @@
     justify-content: center;
     padding: 2rem;
     gap: 2rem;
+  
 }
+
 
 .mainContainer{
     display:flex;
@@ -58,4 +60,13 @@
     border-radius: 5px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
     padding: 2rem;
+}
+
+.title{
+    color: #4f9d8c;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
 }
