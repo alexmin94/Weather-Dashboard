@@ -1,3 +1,4 @@
+// "0ea61558bdb913d734d4f05c0f4302f6" dbb1e9b7c8bad902bd55c2a2689ca560
 const apikey="0ea61558bdb913d734d4f05c0f4302f6"
 const input=document.querySelector("#input")
 const citytitle=document.querySelector(".citytitle")
@@ -6,45 +7,38 @@ const fivedaycontainer=document.querySelector(".fiveDayContainer")
 const historysection=document.querySelector(".historySection")
 function search(cityname){
     fetch(
-        `https://api.openweathermap.org/geo/1.0/direct?q=${cityname}&limit=5&appid=${apikey}`
+        `https://api.openweathermap.org/data/2.5/weather?q=${cityname}&units=metric&appid=${apikey}`
     ).then(function (response){
         return response.json()
     }).then(function (data){
+        const iconcode=data.weather[0].icon
+    const iconlink=`https://openweathermap.org/img/w/${iconcode}.png`
 console.log(data)
 const currentcity=`
-<h1>${data[0].name}</h1>
-<h1>${data[0].state}</h1>
+<h1>${data.name}</h1>
+
+
+<img src="${iconlink}"/>
+<p> ${data.weather[0].description}</p>
+<p>temp: ${data.main.temp}</p>
+<p>humidity: ${data.main.humidity}</p>
+<p>windspeed: ${data.wind.speed}</p>
 `
 citytitle.innerHTML= currentcity
-const lat=data[0].lat
-const lon=data[0].lon
+const lat=data.coord.lat
+const lon=data.coord.lon
 
 fetch(
-    `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=imperial&appid=${apikey}`
+    `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${apikey}`
 ).then(function(response){
     return response.json()
 }).then(function (forecastdata){
     console.log(forecastdata,"datastuff")
     let fiveday=""
-    const iconcode=forecastdata.current.weather[0].icon
-    const iconlink=`https://openweathermap.org/img/w/${iconcode}.png`
-
-    const currentWeather=`
-    <div>
-    <img src="${iconlink}"/>
-    <p> ${forecastdata.current.weather[0].description}</p>
-    <p>temp: ${forecastdata.current.temp}</p>
-    <p>humidity: ${forecastdata.current.humidity}</p>
-    <p>windspeed: ${forecastdata.current.wind_speed}</p>
-    </div>
+    
 
 
-    `
-
-    cityinfo.innerHTML=currentWeather
-
-
-    let fivedayforecast=forecastdata.daily
+    let fivedayforecast=forecastdata.list
     
     for(var i=0;i<5;i++){
         console.log(fivedayforecast[i],"5day")
@@ -59,9 +53,9 @@ fetch(
         <img src="${fivedaylink}"/>
         </div>
         <p> ${fivedayforecast[i].weather[0].description}</p>
-    <p>temp: ${fivedayforecast[i].temp.day}</p>
-    <p>humidity: ${fivedayforecast[i].humidity}</p>
-    <p>windspeed: ${fivedayforecast[i].wind_speed}</p>
+    <p>temp: ${fivedayforecast[i].main.temp}</p>
+    <p>humidity: ${fivedayforecast[i].main.humidity}</p>
+    <p>windspeed: ${fivedayforecast[i].wind.speed}</p>
         
         </div>
         `
